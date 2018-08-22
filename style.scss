@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffefc;
+}
+
+%ball {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: yellowgreen;
+  position: relative;
+  cursor: pointer;
+}
+
+#wrapper {
+  width: 500px;
+  height: 500px;
+  border: 1px solid yellowgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  #marker {
+    @extend %ball;
+    position: relative;
+    z-index: 100;
+
+    &:hover {
+      background-color: darken(yellowgreen, 10%);
+    }
+  }
+
+  #prog-container {
+    width: 300px;
+    position: absolute;
+    z-index: 10;
+  }
+}
+
+.prog-ball-cont {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 100% 50%;
+
+  .prog-ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    
+    /* If you want to use bg image */
+    // background: url("http://i.imgur.com/sdO8tAw.png") no-repeat center; 
+    // background-size: contain;
+    background-color: lighten(yellowgreen, 20%);
+    
+    animation: ball-effect .3s ease-in .4s forwards;
+
+    &::before {
+      content: attr(data-content);
+      display: block;
+      position: absolute;
+      top: -18px;
+      width: max-content;
+      font-size: 14px;
+    }
+  }
+  
+  .ball-line {
+    width: calc(100% - 30px);
+    height: 1px;
+    background-color: darkgray;
+
+    animation: line-effect .5s ease-in-out forwards;
+  }
+}
+
+
+@keyframes line-effect {
+  from { transform: translateX(50%) rotate3d(0,-1,0, 90deg); }
+  to { transform: translateX(0) rotate3d(0,0,0, 0); }
+}
+
+@keyframes ball-effect {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
